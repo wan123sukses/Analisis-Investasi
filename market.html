@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Market Global</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+     <nav class="sidebar">
+      <h2>📊 Menu</h2>
+      <ul>
+    <a href="index.html">Beranda</a>
+    <a href="market.html">Market Global</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+    <a href="teknologi.html">Teknologi</a>
+    <a href="contact.html">Contact</a>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="market-container">
+    <!-- Crypto -->
+    <section class="market-box">
+      <h2>🪙 Harga Crypto (Real-Time)</h2>
+      <ul id="crypto-prices">
+        <li>Bitcoin (BTC): <span id="btc-price">Loading...</span></li>
+        <li>Ethereum (ETH): <span id="eth-price">Loading...</span></li>
+        <li>Binance Coin (BNB): <span id="bnb-price">Loading...</span></li>
+      </ul>
+    </section>
+
+    <!-- Emas -->
+    <section class="market-box">
+      <h2>💰 Harga Emas Dunia (USD)</h2>
+      <ul>
+        <li>Emas (Gold): <span id="gold-price">$2,340</span></li> <!-- Dummy -->
+        <li>Perak (Silver): <span id="silver-price">$29.1</span></li> <!-- Dummy -->
+      </ul>
+    </section>
+
+    <!-- Indeks Saham -->
+    <section class="market-box">
+      <h2>📈 Indeks Saham Dunia</h2>
+      <ul>
+        <li>S&P 500: <span id="sp500">5,321.50</span></li>
+        <li>Nasdaq: <span id="nasdaq">16,841.00</span></li>
+        <li>Nikkei 225: <span id="nikkei">38,900.00</span></li>
+      </ul>
+    </section>
+
+    <!-- Kurs Mata Uang -->
+    <section class="market-box">
+      <h2>💱 Kurs Mata Uang</h2>
+      <ul>
+        <li>USD/IDR: <span id="usd-idr">15,900</span></li>
+        <li>EUR/USD: <span id="eur-usd">1.08</span></li>
+        <li>JPY/IDR: <span id="jpy-idr">105.5</span></li>
+      </ul>
+    </section>
+
+    <section class="market-box">
+      <h2>📅 Futures</h2>
+      <ul>
+    <li>S&P Futures: <strong>+0.45%</strong></li>
+    <li>Nasdaq Futures: <strong>+0.70%</strong></li>
+      </ul>
+    </section>
+  
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Website Investasi Pribadi. Data sebagian real-time dan sebagian simulasi.</p>
+  </footer>
+
+  <script>
+    async function fetchCryptoPrices() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin&vs_currencies=usd");
+        const data = await res.json();
+
+        document.getElementById("btc-price").textContent = "$" + data.bitcoin.usd.toLocaleString();
+        document.getElementById("eth-price").textContent = "$" + data.ethereum.usd.toLocaleString();
+        document.getElementById("bnb-price").textContent = "$" + data.binancecoin.usd.toLocaleString();
+      } catch (error) {
+        console.error("Gagal ambil harga crypto:", error);
+      }
+    }
+
+    fetchCryptoPrices();
+    setInterval(fetchCryptoPrices, 30000);
+  </script>
+</body>
+</html>
